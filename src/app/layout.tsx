@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/NavbarSection";
-import CryptoLayout, { useSidebar } from "@/components/principal/LayoutSidebar";
+import { CryptoLayout, useSidebar } from "@/components/principal/LayoutSidebar";
 import { GeistSans } from 'geist/font/sans';
 
 const geistSans = Geist({
