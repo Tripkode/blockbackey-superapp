@@ -69,6 +69,23 @@ function ProfilePage() {
     const [tempValues, setTempValues] = useState({});
     const [showAddCard, setShowAddCard] = useState(false);
 
+    const [addresses, setAddresses] = useState([
+        {
+            id: 1,
+            label: 'Casa',
+            address: 'Cra. 45 #12-34, Cali, Valle del Cauca',
+            isPrimary: true
+        },
+        {
+            id: 2,
+            label: 'Oficina',
+            address: 'Av. 6N #23-45, Cali, Valle del Cauca',
+            isPrimary: false
+        }
+    ]);
+    const [showAddAddress, setShowAddAddress] = useState(false);
+    const [newAddress, setNewAddress] = useState({ label: '', address: '', location: 'Cali, Valle del Cauca' });
+
     const router = useRouter();
 
     const handleEditField = (field: any, currentValue: any) => {
@@ -110,8 +127,27 @@ function ProfilePage() {
         router.push('/wallet')
     };
 
+    const handleSetPrimaryAddress = (id: number) => {
+        setAddresses(prev => prev.map(addr => ({ ...addr, isPrimary: addr.id === id })));
+    };
+
+    const handleAddAddress = () => {
+        if (!newAddress.label.trim() || !newAddress.address.trim()) return;
+        setAddresses(prev => [
+            ...prev,
+            {
+                id: prev.length ? Math.max(...prev.map(a => a.id)) + 1 : 1,
+                label: newAddress.label,
+                address: newAddress.address + (newAddress.location ? `, ${newAddress.location}` : ''),
+                isPrimary: false
+            }
+        ]);
+        setNewAddress({ label: '', address: '', location: 'Cali, Valle del Cauca' });
+        setShowAddAddress(false);
+    };
+
     return (
-        <div className="min-h-screen relative overflow-hidden pt-16 sm:pt-20">
+        <div className="min-h-screen relative overflow-hidden pt-32 sm:pt-20">
             {/* Fondo sutil con elementos flotantes - Adaptado para móviles */}
             <div className="absolute inset-0">
                 <div className="absolute top-10 sm:top-20 left-5 sm:left-10 w-20 sm:w-32 h-20 sm:h-32 bg-amber-100/20 rounded-full blur-3xl"></div>
@@ -429,6 +465,90 @@ function ProfilePage() {
                                     </button>
                                 )}
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Sección de Direcciones */}
+                    <div
+                        className="bg-gray-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 mb-4 sm:mb-6"
+                        style={{
+                            boxShadow: '6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.8)'
+                        }}
+                    >
+                        <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                            <MapPin className="w-4 sm:w-5 h-4 sm:h-5 mr-2 text-amber-500" />
+                            Direcciones
+                        </h2>
+                        <div className="space-y-3 sm:space-y-4">
+                            {addresses.map(addr => (
+                                <div key={addr.id} className="flex items-center justify-between p-3 sm:p-4 rounded-xl bg-white/50" style={{ boxShadow: 'inset 2px 2px 5px rgba(0,0,0,0.05), inset -2px -2px 5px rgba(255,255,255,0.9)' }}>
+                                    <div className="flex items-center gap-3">
+                                        <input
+                                            type="radio"
+                                            name="primaryAddress"
+                                            checked={addr.isPrimary}
+                                            onChange={() => handleSetPrimaryAddress(addr.id)}
+                                            className="accent-amber-500 w-4 h-4"
+                                        />
+                                        <div>
+                                            <p className="font-medium text-gray-900 text-sm sm:text-base">{addr.label}</p>
+                                            <p className="text-xs sm:text-sm text-gray-600">{addr.address}</p>
+                                            {addr.isPrimary && (
+                                                <span className="inline-block px-2 py-1 bg-amber-100 text-amber-800 text-xs rounded-full mt-1">Principal</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            {showAddAddress ? (
+                                <div className="flex flex-col gap-2 p-3 sm:p-4 rounded-xl bg-white/50 border border-amber-200">
+                                    <input
+                                        type="text"
+                                        placeholder="Etiqueta (ej: Casa, Oficina)"
+                                        value={newAddress.label}
+                                        onChange={e => setNewAddress(prev => ({ ...prev, label: e.target.value }))}
+                                        className="px-3 py-2 border border-gray-300 rounded-lg text-sm mb-2"
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="Dirección (ej: Cra. 45 #12-34)"
+                                        value={newAddress.address}
+                                        onChange={e => setNewAddress(prev => ({ ...prev, address: e.target.value }))}
+                                        className="px-3 py-2 border border-gray-300 rounded-lg text-sm mb-2"
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="Ciudad, Departamento"
+                                        value={newAddress.location}
+                                        onChange={e => setNewAddress(prev => ({ ...prev, location: e.target.value }))}
+                                        className="px-3 py-2 border border-gray-300 rounded-lg text-sm mb-2"
+                                    />
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={handleAddAddress}
+                                            className="flex-1 px-4 py-2 bg-amber-500 text-white rounded-full font-medium hover:bg-amber-600 transition-colors"
+                                        >
+                                            Guardar
+                                        </button>
+                                        <button
+                                            onClick={() => { setShowAddAddress(false); setNewAddress({ label: '', address: '', location: 'Cali, Valle del Cauca' }); }}
+                                            className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors"
+                                        >
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={() => setShowAddAddress(true)}
+                                    className="w-full flex items-center justify-center p-3 sm:p-4 rounded-xl bg-white/50 border-2 border-dashed border-gray-300 hover:border-amber-500 transition-colors group"
+                                >
+                                    <Plus className="w-4 sm:w-5 h-4 sm:h-5 mr-2 text-gray-500 group-hover:text-amber-500" />
+                                    <span className="text-sm sm:text-base text-gray-500 group-hover:text-amber-500">
+                                        Agregar nueva dirección
+                                    </span>
+                                </button>
+                            )}
                         </div>
                     </div>
 

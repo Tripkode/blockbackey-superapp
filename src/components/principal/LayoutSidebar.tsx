@@ -257,7 +257,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: -300, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="fixed left-0 top-0 h-full w-80 bg-white/80 backdrop-blur-xl border-r border-gray-200/50 z-40 overflow-y-auto"
+                    className="fixed left-0 top-0 h-full w-80 bg-white/80 backdrop-blur-xl border-r border-gray-200/50 z-40 overflow-y-auto no-scrollbar"
                 >
                     {/* Switch de Modo visible en todos los tamaños */}
                     <div className="p-4 border-b border-gray-200/30 pt-16">

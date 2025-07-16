@@ -208,7 +208,7 @@ const BakeryHeroSection = () => {
     }, [filteredBakeries.length, isDragging]);
 
     return (
-        <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-20">
+        <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-32">
             {/* Fondo sutil con elementos flotantes */}
             <div className="absolute inset-0">
                 <div className="absolute top-20 left-10 w-32 h-32 bg-amber-100/20 rounded-full blur-3xl"></div>
