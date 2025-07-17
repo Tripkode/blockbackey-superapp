@@ -257,10 +257,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: -300, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="fixed left-0 top-0 h-full w-80 bg-white/80 backdrop-blur-xl border-r border-gray-200/50 z-40 overflow-y-auto no-scrollbar"
+                    className="fixed left-0 top-0 h-full w-80 backdrop-blur-xl border-r bg-white border-gray-200/50 z-40 overflow-y-auto no-scrollbar pt-16"
                 >
                     {/* Switch de Modo visible en todos los tamaños */}
-                    <div className="p-4 border-b border-gray-200/30 pt-16">
+                    <div className="p-4 border-b border-gray-200/30 pt-3">
                         <div className="flex items-center justify-center space-x-4">
                             <div className="flex items-center space-x-2">
                                 <Bitcoin className="w-4 h-4 text-orange-500" />
@@ -330,15 +330,13 @@ export const useSidebar = () => {
     return { sidebarOpen, toggleSidebar };
 };
 
-
-
 export const CryptoLayout: React.FC<LayoutProps> = ({
     children,
     sidebarOpen,
     onToggleSidebar
 }) => {
     return (
-        <div className="relative min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="relative min-h-screen bg-gradient-to-br">
             {/* Sidebar */}
             <Sidebar isOpen={sidebarOpen} onToggle={onToggleSidebar} />
 

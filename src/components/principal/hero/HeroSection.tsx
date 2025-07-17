@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, PanInfo } from 'framer-motion';
 import { Search, Star, ChevronRight, MapPin, Timer, Zap, Clock, Heart, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -11,6 +11,9 @@ const BakeryHeroSection = () => {
     const [selectedCategory, setSelectedCategory] = useState('populares');
     const [favorites, setFavorites] = useState(new Set());
     const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const carouselRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
     const categories = [
@@ -135,6 +138,389 @@ const BakeryHeroSection = () => {
                     rating: 4.9
                 }
             ]
+        },
+        {
+            id: 4,
+            name: 'La Petite Boulangerie',
+            username: 'la-petite-boulangerie',
+            tagline: 'Sabor francés auténtico',
+            rating: 4.6,
+            reviews: 198,
+            deliveryTime: '12-18',
+            nextBatch: 18,
+            distance: '0.9 km',
+            promotion: '-15%',
+            featured: false,
+            image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Tarte Tatin',
+                    price: 15000,
+                    originalPrice: 17500,
+                    image: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=120&h=120&fit=crop',
+                    nextReady: 18,
+                    rating: 4.9,
+                    bestseller: true
+                },
+                {
+                    name: 'Croissant Almendra',
+                    price: 9200,
+                    image: 'https://images.unsplash.com/photo-1555507530-c54e82458e59?w=120&h=120&fit=crop',
+                    nextReady: 28,
+                    rating: 4.7
+                },
+                {
+                    name: 'Mille-feuille',
+                    price: 11500,
+                    image: 'https://images.unsplash.com/photo-1586444248804-7c5f7b2c7d94?w=120&h=120&fit=crop',
+                    nextReady: 38,
+                    rating: 4.8
+                }
+            ]
+        },
+        {
+            id: 5,
+            name: 'Masa Madre',
+            username: 'masa-madre',
+            tagline: 'Tradición artesanal',
+            rating: 4.8,
+            reviews: 267,
+            deliveryTime: '18-25',
+            nextBatch: 25,
+            distance: '1.5 km',
+            promotion: null,
+            featured: true,
+            image: 'https://images.unsplash.com/photo-1578662996402-fdb17c7be2de?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Pan Integral',
+                    price: 8500,
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=120&h=120&fit=crop',
+                    nextReady: 25,
+                    rating: 4.9,
+                    bestseller: true
+                },
+                {
+                    name: 'Rosca Mediterránea',
+                    price: 12000,
+                    image: 'https://images.unsplash.com/photo-1571197119282-6d4d2b654e79?w=120&h=120&fit=crop',
+                    nextReady: 35,
+                    rating: 4.7
+                },
+                {
+                    name: 'Pretzel Artesanal',
+                    price: 6800,
+                    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=120&h=120&fit=crop',
+                    nextReady: 45,
+                    rating: 4.6
+                }
+            ]
+        },
+        {
+            id: 6,
+            name: 'Sweet Dreams',
+            username: 'sweet-dreams',
+            tagline: 'Dulces sueños hechos realidad',
+            rating: 4.5,
+            reviews: 142,
+            deliveryTime: '20-30',
+            nextBatch: 12,
+            distance: '0.7 km',
+            promotion: '3x2',
+            featured: false,
+            image: 'https://images.unsplash.com/photo-1555507530-c54e82458e59?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Cupcake Red Velvet',
+                    price: 7500,
+                    image: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=120&h=120&fit=crop',
+                    nextReady: 12,
+                    rating: 4.8,
+                    bestseller: true
+                },
+                {
+                    name: 'Cheesecake Fresa',
+                    price: 13500,
+                    image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=120&h=120&fit=crop',
+                    nextReady: 22,
+                    rating: 4.9
+                },
+                {
+                    name: 'Tiramisú Individual',
+                    price: 11000,
+                    image: 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=120&h=120&fit=crop',
+                    nextReady: 32,
+                    rating: 4.7
+                }
+            ]
+        },
+        {
+            id: 7,
+            name: 'Hornos de Medellín',
+            username: 'hornos-medellin',
+            tagline: 'Tradición paisa',
+            rating: 4.7,
+            reviews: 289,
+            deliveryTime: '15-20',
+            nextBatch: 20,
+            distance: '1.1 km',
+            promotion: null,
+            featured: true,
+            image: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Arepa Paisa',
+                    price: 3500,
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=120&h=120&fit=crop',
+                    nextReady: 20,
+                    rating: 4.9,
+                    bestseller: true
+                },
+                {
+                    name: 'Buñuelo Tradicional',
+                    price: 2800,
+                    image: 'https://images.unsplash.com/photo-1578662996402-fdb17c7be2de?w=120&h=120&fit=crop',
+                    nextReady: 30,
+                    rating: 4.8
+                },
+                {
+                    name: 'Pandebono',
+                    price: 4200,
+                    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=120&h=120&fit=crop',
+                    nextReady: 40,
+                    rating: 4.6
+                }
+            ]
+        },
+        {
+            id: 8,
+            name: 'Café & Croissant',
+            username: 'cafe-croissant',
+            tagline: 'Desayunos perfectos',
+            rating: 4.4,
+            reviews: 176,
+            deliveryTime: '10-15',
+            nextBatch: 8,
+            distance: '0.6 km',
+            promotion: '-25%',
+            featured: false,
+            image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Croissant Jamón Queso',
+                    price: 8900,
+                    originalPrice: 11900,
+                    image: 'https://images.unsplash.com/photo-1555507530-c54e82458e59?w=120&h=120&fit=crop',
+                    nextReady: 8,
+                    rating: 4.7,
+                    bestseller: true
+                },
+                {
+                    name: 'Café con Leche',
+                    price: 5500,
+                    image: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=120&h=120&fit=crop',
+                    nextReady: 18,
+                    rating: 4.5
+                },
+                {
+                    name: 'Tostada Francesa',
+                    price: 7200,
+                    image: 'https://images.unsplash.com/photo-1586444248804-7c5f7b2c7d94?w=120&h=120&fit=crop',
+                    nextReady: 28,
+                    rating: 4.6
+                }
+            ]
+        },
+        {
+            id: 9,
+            name: 'Panadería Central',
+            username: 'panaderia-central',
+            tagline: 'En el corazón de la ciudad',
+            rating: 4.6,
+            reviews: 312,
+            deliveryTime: '12-18',
+            nextBatch: 14,
+            distance: '0.4 km',
+            promotion: null,
+            featured: true,
+            image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Pan Campesino',
+                    price: 6500,
+                    image: 'https://images.unsplash.com/photo-1578662996402-fdb17c7be2de?w=120&h=120&fit=crop',
+                    nextReady: 14,
+                    rating: 4.8,
+                    bestseller: true
+                },
+                {
+                    name: 'Torta Tres Leches',
+                    price: 16000,
+                    image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=120&h=120&fit=crop',
+                    nextReady: 24,
+                    rating: 4.9
+                },
+                {
+                    name: 'Empanada Pollo',
+                    price: 4800,
+                    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=120&h=120&fit=crop',
+                    nextReady: 34,
+                    rating: 4.7
+                }
+            ]
+        },
+        {
+            id: 10,
+            name: 'Delicias Europeas',
+            username: 'delicias-europeas',
+            tagline: 'Sabores del viejo continente',
+            rating: 4.9,
+            reviews: 203,
+            deliveryTime: '18-25',
+            nextBatch: 30,
+            distance: '1.8 km',
+            promotion: '2x1',
+            featured: false,
+            image: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Strudel Manzana',
+                    price: 14500,
+                    image: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=120&h=120&fit=crop',
+                    nextReady: 30,
+                    rating: 4.9,
+                    bestseller: true
+                },
+                {
+                    name: 'Pretzel Alemán',
+                    price: 8800,
+                    image: 'https://images.unsplash.com/photo-1571197119282-6d4d2b654e79?w=120&h=120&fit=crop',
+                    nextReady: 40,
+                    rating: 4.8
+                },
+                {
+                    name: 'Cannoli Siciliano',
+                    price: 9500,
+                    image: 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=120&h=120&fit=crop',
+                    nextReady: 50,
+                    rating: 4.7
+                }
+            ]
+        },
+        {
+            id: 11,
+            name: 'Horno Artesanal',
+            username: 'horno-artesanal',
+            tagline: 'Hecho con amor',
+            rating: 4.5,
+            reviews: 167,
+            deliveryTime: '22-30',
+            nextBatch: 16,
+            distance: '1.3 km',
+            promotion: '-30%',
+            featured: true,
+            image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Pan de Centeno',
+                    price: 9800,
+                    originalPrice: 14000,
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=120&h=120&fit=crop',
+                    nextReady: 16,
+                    rating: 4.6,
+                    bestseller: true
+                },
+                {
+                    name: 'Galleta Avena',
+                    price: 3500,
+                    image: 'https://images.unsplash.com/photo-1578662996402-fdb17c7be2de?w=120&h=120&fit=crop',
+                    nextReady: 26,
+                    rating: 4.4
+                },
+                {
+                    name: 'Muffin Arándanos',
+                    price: 6800,
+                    image: 'https://images.unsplash.com/photo-1555507530-c54e82458e59?w=120&h=120&fit=crop',
+                    nextReady: 36,
+                    rating: 4.7
+                }
+            ]
+        },
+        {
+            id: 12,
+            name: 'Bakery Express',
+            username: 'bakery-express',
+            tagline: 'Rápido y fresco',
+            rating: 4.3,
+            reviews: 145,
+            deliveryTime: '8-12',
+            nextBatch: 6,
+            distance: '0.3 km',
+            promotion: null,
+            featured: false,
+            image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Sandwich Integral',
+                    price: 7200,
+                    image: 'https://images.unsplash.com/photo-1586444248804-7c5f7b2c7d94?w=120&h=120&fit=crop',
+                    nextReady: 6,
+                    rating: 4.5,
+                    bestseller: true
+                },
+                {
+                    name: 'Donut Glaseado',
+                    price: 4500,
+                    image: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=120&h=120&fit=crop',
+                    nextReady: 16,
+                    rating: 4.2
+                },
+                {
+                    name: 'Brownie Chocolate',
+                    price: 8500,
+                    image: 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=120&h=120&fit=crop',
+                    nextReady: 26,
+                    rating: 4.4
+                }
+            ]
+        },
+        {
+            id: 13,
+            name: 'Tradición Familiar',
+            username: 'tradicion-familiar',
+            tagline: 'Recetas de la abuela',
+            rating: 4.8,
+            reviews: 298,
+            deliveryTime: '16-22',
+            nextBatch: 19,
+            distance: '1.0 km',
+            promotion: '50% 2da unidad',
+            featured: true,
+            image: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=800&h=400&fit=crop',
+            products: [
+                {
+                    name: 'Torta Casera',
+                    price: 18000,
+                    image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=120&h=120&fit=crop',
+                    nextReady: 19,
+                    rating: 4.9,
+                    bestseller: true
+                },
+                {
+                    name: 'Pan Dulce',
+                    price: 5200,
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=120&h=120&fit=crop',
+                    nextReady: 29,
+                    rating: 4.7
+                },
+                {
+                    name: 'Rosquilla Anís',
+                    price: 3800,
+                    image: 'https://images.unsplash.com/photo-1578662996402-fdb17c7be2de?w=120&h=120&fit=crop',
+                    nextReady: 39,
+                    rating: 4.8
+                }
+            ]
         }
     ];
 
@@ -206,6 +592,29 @@ const BakeryHeroSection = () => {
             return () => clearInterval(interval);
         }
     }, [filteredBakeries.length, isDragging]);
+
+    // Funciones para drag-scroll en desktop
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (window.innerWidth < 1024) return;
+        setIsDragging(true);
+        setStartX(e.pageX - (carouselRef.current?.offsetLeft || 0));
+        setScrollLeft(carouselRef.current?.scrollLeft || 0);
+    };
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!isDragging || window.innerWidth < 1024) return;
+        e.preventDefault();
+        const x = e.pageX - (carouselRef.current?.offsetLeft || 0);
+        const walk = (x - startX) * 1.5; // velocidad
+        if (carouselRef.current) {
+            carouselRef.current.scrollLeft = scrollLeft - walk;
+        }
+    };
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-32">
@@ -525,6 +934,85 @@ const BakeryHeroSection = () => {
                             ))}
                         </div>
                     )}
+                </div>
+            </div>
+
+            <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-12">
+                <div className="max-w-4xl mx-auto">
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
+                        Nuestras mejores panaderías
+                    </h2>
+
+                    {/* Carousel de panaderías */}
+                    <div className="relative">
+                        <div
+                            ref={carouselRef}
+                            className="flex gap-6 overflow-x-auto pb-4 cursor-grab active:cursor-grabbing"
+                            style={{
+                                scrollbarWidth: 'none',
+                                msOverflowStyle: 'none',
+                                userSelect: isDragging ? 'none' : 'auto',
+                            }}
+                            onMouseDown={handleMouseDown}
+                            onMouseMove={handleMouseMove}
+                            onMouseUp={handleMouseUp}
+                            onMouseLeave={handleMouseLeave}
+                        >
+                            <style jsx>{`
+                                div::-webkit-scrollbar {
+                                    display: none;
+                                }
+                            `}</style>
+                            {bakeries.map((bakery, idx) => (
+                                <motion.div
+                                    key={bakery.id}
+                                    className="flex-shrink-0 cursor-pointer group"
+                                    onClick={() => {
+                                        if (!isDragging) handleBakeryNavigation(bakery.username);
+                                    }}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <div className="flex flex-col items-center p-4 transition-all duration-300"
+                                        style={{
+                                            width: '140px'
+                                        }}
+                                    >
+                                        {/* Avatar circular con blur y sombra */}
+                                        <div className="relative mb-4">
+                                            <div
+                                                className="w-18 h-18 rounded-full overflow-hidden backdrop-blur-sm transition-all duration-300 group-hover:scale-105"
+                                                style={{
+                                                    boxShadow: '8px 8px 16px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.8)',
+                                                    width: '72px',
+                                                    height: '72px'
+                                                }}
+                                            >
+                                                <img
+                                                    src={bakery.image}
+                                                    alt={bakery.name}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Nombre de la panadería */}
+                                        <h3 className="text-sm font-semibold text-gray-900 text-center whitespace-nowrap px-2">
+                                            {bakery.name}
+                                        </h3>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        {/* Indicador de scroll en mobile */}
+                        <div className="flex justify-center mt-4 md:hidden">
+                            <div className="text-xs text-gray-400 flex items-center gap-1">
+                                <span>Desliza para ver más</span>
+                                <ChevronRight className="w-3 h-3" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
