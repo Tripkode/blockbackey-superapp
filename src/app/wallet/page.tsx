@@ -592,7 +592,7 @@ const WalletPage = () => {
                                     transition={{ duration: 0.3, delay: coin.id * 0.03 }}
                                     className="bg-white/70 backdrop-blur-sm p-4 rounded-xl border border-white/20 shadow-sm"
                                 >
-                                    <div className="flex items-center justify-between" onClick={() => router.push(`/wallet/${coin.symbol}`)}>
+                                    <div className="flex items-center justify-between" onClick={() => router.push(`/wallet/currency/${coin.symbol}`)}>
                                         <div className="flex items-center space-x-3">
                                             <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full">
                                                 <span className="text-lg">{coin.icon}</span>
@@ -652,6 +652,7 @@ const WalletPage = () => {
                                             exit={{ opacity: 0, x: 20 }}
                                             transition={{ duration: 0.3 }}
                                             className="flex items-center justify-between bg-white/70 backdrop-blur-sm p-4 rounded-xl border border-white/20 shadow-sm"
+                                            onClick={() => router.push(`/wallet/transaccion/${transaction.id}`)}
                                         >
                                             <div className="flex items-center">
                                                 {getTransactionIcon(transaction.type)}
