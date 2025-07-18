@@ -2,10 +2,10 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'app.backery.superapp',
-  appName: 'blockbakery-superapp',
+  appName: 'BlockBakery',
   webDir: 'mobile-dist',
   server: {
-    url: 'https://blockbackey.vercel.app',
+    url: 'https://blockbackery.vercel.app',
     cleartext: true
   }
 };

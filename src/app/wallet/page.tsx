@@ -15,8 +15,11 @@ import {
     ExternalLink,
     CreditCard,
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const WalletPage = () => {
+    const router = useRouter();
+
     // Estado para los modales
     const [exchangeModal, setExchangeModal] = useState({
         isOpen: false,
@@ -276,7 +279,7 @@ const WalletPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-16">
+        <div className="min-h-screen bg-gray-50 relative overflow-hidden sm:pt-20 pt-26">
             {/* Fondo sutil */}
             <div className="absolute inset-0">
                 <div className="absolute top-20 left-10 w-32 h-32 bg-amber-100/20 rounded-full blur-3xl"></div>
@@ -589,7 +592,7 @@ const WalletPage = () => {
                                     transition={{ duration: 0.3, delay: coin.id * 0.03 }}
                                     className="bg-white/70 backdrop-blur-sm p-4 rounded-xl border border-white/20 shadow-sm"
                                 >
-                                    <div className="flex items-center justify-between">
+                                    <div className="flex items-center justify-between" onClick={() => router.push(`/wallet/${coin.symbol}`)}>
                                         <div className="flex items-center space-x-3">
                                             <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full">
                                                 <span className="text-lg">{coin.icon}</span>

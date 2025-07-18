@@ -600,6 +600,7 @@ const BakeryHeroSection = () => {
         setStartX(e.pageX - (carouselRef.current?.offsetLeft || 0));
         setScrollLeft(carouselRef.current?.scrollLeft || 0);
     };
+
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!isDragging || window.innerWidth < 1024) return;
         e.preventDefault();
@@ -609,15 +610,17 @@ const BakeryHeroSection = () => {
             carouselRef.current.scrollLeft = scrollLeft - walk;
         }
     };
+
     const handleMouseUp = () => {
         setIsDragging(false);
     };
+
     const handleMouseLeave = () => {
         setIsDragging(false);
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 relative overflow-hidden pt-32">
+        <div className="min-h-screen relative overflow-hidden pt-32">
             {/* Fondo sutil con elementos flotantes */}
             <div className="absolute inset-0">
                 <div className="absolute top-20 left-10 w-32 h-32 bg-amber-100/20 rounded-full blur-3xl"></div>
@@ -627,7 +630,7 @@ const BakeryHeroSection = () => {
 
             {/* Header compacto */}
             <div className="relative z-10 px-4 sm:px-6 lg:px-8 py-6">
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-7xl mx-auto">
                     {/* Título y buscador */}
                     <div className="text-center mb-8">
                         {/* Contenedor principal responsive */}
@@ -724,7 +727,7 @@ const BakeryHeroSection = () => {
 
             {/* Carrusel principal */}
             <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-12">
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-7xl mx-auto">
                     <AnimatePresence mode="wait">
                         {filteredBakeries.length > 0 ? (
                             <motion.div
@@ -938,7 +941,7 @@ const BakeryHeroSection = () => {
             </div>
 
             <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-12">
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-7xl mx-auto">
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
                         Nuestras mejores panaderías
                     </h2>
@@ -1003,14 +1006,6 @@ const BakeryHeroSection = () => {
                                     </div>
                                 </motion.div>
                             ))}
-                        </div>
-
-                        {/* Indicador de scroll en mobile */}
-                        <div className="flex justify-center mt-4 md:hidden">
-                            <div className="text-xs text-gray-400 flex items-center gap-1">
-                                <span>Desliza para ver más</span>
-                                <ChevronRight className="w-3 h-3" />
-                            </div>
                         </div>
                     </div>
                 </div>

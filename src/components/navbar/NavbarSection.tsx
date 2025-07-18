@@ -1,7 +1,22 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Croissant, Menu, UserRound, Wallet, UserCircle2, Settings, LogOut, MapPin, ChevronDown, Plus, Search, X, Navigation } from 'lucide-react';
+import {
+    Croissant,
+    Menu,
+    UserRound,
+    Wallet,
+    UserCircle2,
+    Settings,
+    LogOut,
+    MapPin,
+    ChevronDown,
+    Plus,
+    Search,
+    X,
+    Navigation,
+    ShoppingCart
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 
@@ -27,7 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen = false, onToggleSidebar })
         city: "Cali, Valle del Cauca",
         address: "Cra 24E #4-97"
     });
-    
+
     const dropdownRef = useRef<HTMLDivElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
@@ -59,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen = false, onToggleSidebar })
     ]);
 
     // Filtrar direcciones según búsqueda
-    const filteredAddresses = savedAddresses.filter(address => 
+    const filteredAddresses = savedAddresses.filter(address =>
         address.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
         address.city.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -222,6 +237,48 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen = false, onToggleSidebar })
 
                                 {/* Right side buttons */}
                                 <div className="flex items-center space-x-3">
+                                    <div className="relative" ref={dropdownRef}>
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            onClick={() => router.push('/cart')}
+                                            className="p-2 rounded-full transition-all duration-300 flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200/50"
+                                        >
+                                            <ShoppingCart className="w-4 h-4" />
+                                        </motion.button>
+
+                                        {/* <AnimatePresence>
+                                            {isDropdownOpen && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                                    transition={{ duration: 0.2, ease: "easeOut" }}
+                                                    className="absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 z-50 origin-top-right bg-white border border-gray-200/70"
+                                                >
+                                                    <a
+                                                        href="/profile"
+                                                        className="flex items-center px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
+                                                    >
+                                                        <UserCircle2 className="mr-2 h-4 w-4" /> Tu perfil
+                                                    </a>
+                                                    <div className="border-t border-gray-200/70 my-1"></div>
+                                                    <a
+                                                        href="#"
+                                                        className="flex items-center px-4 py-2 text-sm transition-colors duration-200 text-gray-700 hover:bg-gray-100"
+                                                    >
+                                                        <Settings className="mr-2 h-4 w-4" /> Configuración
+                                                    </a>
+                                                    <a
+                                                        href="#"
+                                                        className="flex items-center px-4 py-2 text-sm transition-colors duration-200 text-red-600 hover:bg-red-50"
+                                                    >
+                                                        <LogOut className="mr-2 h-4 w-4" /> Cerrar sesión
+                                                    </a>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence> */}
+                                    </div>
                                     {/* User Avatar with Dropdown */}
                                     <div className="relative" ref={dropdownRef}>
                                         <motion.button
@@ -371,11 +428,10 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen = false, onToggleSidebar })
                                         <button
                                             key={address.id}
                                             onClick={() => handleLocationSelect(address)}
-                                            className={`w-full flex items-center p-4 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 ${
-                                                currentLocation.address === address.address && currentLocation.city === address.city
-                                                    ? 'bg-amber-50 border-amber-200'
-                                                    : ''
-                                            }`}
+                                            className={`w-full flex items-center p-4 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 ${currentLocation.address === address.address && currentLocation.city === address.city
+                                                ? 'bg-amber-50 border-amber-200'
+                                                : ''
+                                                }`}
                                         >
                                             <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full mr-3">
                                                 <MapPin size={16} className="text-amber-600" />
