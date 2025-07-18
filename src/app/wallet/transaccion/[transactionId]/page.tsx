@@ -290,7 +290,7 @@ function TransactionPage({ params }: { params: Promise<{ transactionId: string }
                 </motion.div>
 
                 {/* Contenido específico por tipo */}
-                {transaction.type === 'physical_purchase' && transaction.location && (
+                {transaction.type === 'physical_purchase' && 'location' in transaction && transaction.location && (
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -380,10 +380,18 @@ function TransactionPage({ params }: { params: Promise<{ transactionId: string }
                                     <span className="text-sm font-medium text-gray-700">Comisiones</span>
                                 </div>
                                 <div className="space-y-1 text-sm">
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Plataforma</span>
-                                        <span className="text-gray-900">{formatCurrency(transaction.fees.platform)}</span>
-                                    </div>
+                                    {"platform" in transaction.fees && (
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Plataforma</span>
+                                            <span className="text-gray-900">{formatCurrency(transaction.fees.platform)}</span>
+                                        </div>
+                                    )}
+                                    {"exchange" in transaction.fees && (
+                                        <div className="flex justify-between">
+                                            <span className="text-gray-600">Intercambio</span>
+                                            <span className="text-gray-900">{formatCurrency(transaction.fees.exchange)}</span>
+                                        </div>
+                                    )}
                                     <div className="flex justify-between">
                                         <span className="text-gray-600">Red</span>
                                         <span className="text-gray-900">{formatCurrency(transaction.fees.network)}</span>
